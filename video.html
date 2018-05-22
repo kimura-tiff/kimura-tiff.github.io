@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>video sample</title>
+		</head>
+	<body>
+		<h1>video sample</h1>
+		<video id="video" autoplay playsinline></video>
+		<script type="text/javascript">
+			const medias = {audio : false, video : {
+        facingMode: "user" // フロントカメラにアクセス
+      }},
+      video  = document.getElementById("video");
+
+navigator.getUserMedia(medias, successCallback, errorCallback);
+
+function successCallback(stream) {
+  video.srcObject = stream;
+};
+
+function errorCallback(err) {
+  alert(err);
+};
+</script>
+<style type="text/css">
+	body {
+  margin: 0;
+  background: #000;
+}
+
+#video {
+  display: block;
+  width: 100%;
+</style>
+</body>
+</html>
