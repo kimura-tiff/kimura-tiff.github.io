@@ -12,6 +12,10 @@
 		<div style="display:none">
    		   <canvas id="canvas"></canvas>
 		</div>
+        <div>
+            <canvas id="canvasOutput" ></canvas>
+            <div class="caption">canvasOutput</div>
+        </div>
 		<input type="button" id="action" value="解析"/>
         <script type="text/javascript">
         	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
@@ -50,12 +54,21 @@
 
             		ctx.drawImage(video, 0, 0, w, h);
 
+                    img.onload = function() { 
+                    let mat = cv.imread(img);
+                    let thre = new cv.Mat()
+                    cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
+                    cv.imshow('canvasOutput', thre);
+                    mat.delete();
+                    thre.delete();
+                    };
             		decodeImageFromBase64(canvas.toDataURL('image/png'), function(result) {
                     alert(result);
             		});
         		}
    			},false);
 		</script>
+        <script async src="http://www.ritsumei.ac.jp/~ri0049pv/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
         <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js">
         </script>
 	</body>
