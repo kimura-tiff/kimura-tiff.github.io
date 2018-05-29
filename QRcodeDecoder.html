@@ -41,6 +41,7 @@
         		qrcode.decode(data)
     		}
 
+
     		document.getElementById("action").addEventListener('click',function(){
         		if(localStream) {
             		var canvas = document.getElementById('canvas');
@@ -55,14 +56,6 @@
 
             		ctx.drawImage(video, 0, 0, w, h);
 
-                    img.onload = function() { 
-                        let mat = cv.imread(img);
-                        let thre = new cv.Mat()
-                        cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
-                        cv.imshow('canvasOutput', thre);
-                        mat.delete();
-                        thre.delete();
-                    };
             		decodeImageFromBase64(canvas.toDataURL('image/png'), function(result) {
                     alert(result);
             		});
