@@ -56,12 +56,12 @@
             		ctx.drawImage(video, 0, 0, w, h);
 
                     img.onload = function() { 
-                    let mat = cv.imread(img);
-                    let thre = new cv.Mat()
-                    cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
-                    cv.imshow('canvasOutput', thre);
-                    mat.delete();
-                    thre.delete();
+                        let mat = cv.imread(img);
+                        let thre = new cv.Mat()
+                        cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
+                        cv.imshow('canvasOutput', thre);
+                        mat.delete();
+                        thre.delete();
                     };
             		decodeImageFromBase64(canvas.toDataURL('image/png'), function(result) {
                     alert(result);
@@ -72,7 +72,7 @@
             document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
             }
 		</script>
-        <script async src="http://www.ritsumei.ac.jp/~ri0049pv/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+        <script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
         <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js">
         </script>
 	</body>
