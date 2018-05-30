@@ -47,8 +47,6 @@
             		var canvas = document.getElementById('canvas');
             		var ctx = canvas.getContext('2d');
             		var img = document.getElementById('img');
-                    (e) => {img.src = URL.createObjectURL(e.target.files[0]);
-                    };
 
             		var w = video.offsetWidth/1.8;
             		var h = video.offsetHeight;
@@ -58,20 +56,20 @@
 
             		ctx.drawImage(video, 0, 0, w, h);
 
-                    img.onload = function() { 
-                        var mat = cv.imread(img);
+                    canvas.onload = function() { 
+                        var mat = cv.imread(canvas);
                         var thre = new cv.Mat()
                         cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
                         cv.imshow('canvasOutput', thre);
                         mat.delete();
                         thre.delete();
                     };
-
             		decodeImageFromBase64(canvas.toDataURL('image/png'), function(result) {
                     alert(result);
             		});
         		}
    			},false);
+
             function onOpenCvReady() {
             document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
             }
