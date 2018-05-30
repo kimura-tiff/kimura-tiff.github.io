@@ -54,16 +54,16 @@
             		canvas.setAttribute("width", w);
             		canvas.setAttribute("height", h);
 
-            		ctx.drawImage(video, 0, 0, w, h);
-
-                    canvas.onload = function() { 
-                        var mat = cv.imread(canvas);
+                    video.onload = function() { 
+                        var mat = cv.imread(video);
                         var thre = new cv.Mat()
                         cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
                         cv.imshow('canvasOutput', thre);
                         mat.delete();
                         thre.delete();
                     };
+
+                    ctx.drawImage(video, 0, 0, w, h);
             		decodeImageFromBase64(canvas.toDataURL('image/png'), function(result) {
                     alert(result);
             		});
