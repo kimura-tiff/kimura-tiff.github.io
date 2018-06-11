@@ -24,6 +24,12 @@ inputElement.addEventListener('change', (e) => {
   imgElement.src = URL.createObjectURL(e.target.files[0]);
 }, false);
 
+                var w = imgElement.offsetWidth/1.8;
+                var h = imgElement.offsetHeight;
+
+                canvasOutput.setAttribute("width", w);
+                canvasOutput.setAttribute("height", h);
+
 function decodeImageFromBase64(data, callback){
             qrcode.callback = callback;
             qrcode.decode(data)
