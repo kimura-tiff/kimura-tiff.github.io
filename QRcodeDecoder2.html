@@ -23,7 +23,6 @@ let inputElement = document.getElementById('fileInput');
 inputElement.addEventListener('change', (e) => {
   imgElement.src = URL.createObjectURL(e.target.files[0]);
 }, false);
-var ctx = document.getElementById("cavasOutput").getContext("2d");
 
 function decodeImageFromBase64(data, callback){
             qrcode.callback = callback;
