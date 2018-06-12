@@ -32,7 +32,7 @@ function decodeImageFromBase64(data, callback){
 imgElement.onload = function() { 
   var mat = cv.imread(imgElement);
   let thre = new cv.Mat();
-  cvtColor(mat, mat, CV_RGB2GBRAY);
+  cv.cvtColor(mat, mat, CV_RGB2GBRAY);
   cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
   cv.imshow('canvasOutput', thre);
 
