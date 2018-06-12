@@ -23,12 +23,7 @@ let inputElement = document.getElementById('fileInput');
 inputElement.addEventListener('change', (e) => {
   imgElement.src = URL.createObjectURL(e.target.files[0]);
 }, false);
-
-                var w = imgElement.offsetWidth/1.8;
-                var h = imgElement.offsetHeight;
-
-                canvasOutput.setAttribute("width", w);
-                canvasOutput.setAttribute("height", h);
+var ctx = document.getElementById("cavasOutput").getContext("2d");
 
 function decodeImageFromBase64(data, callback){
             qrcode.callback = callback;
@@ -39,7 +34,8 @@ imgElement.onload = function() {
   let mat = cv.imread(imgElement);
   let thre = new cv.Mat()
   cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
-  cv.imshow('canvasOutput', thre);
+  ctx.drawImage(thre, 0, 0);
+
   decodeImageFromBase64(canvasOutput.toDataURL('image/png'), function(result) {
                     alert(result);
                 });
