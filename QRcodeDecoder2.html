@@ -34,7 +34,7 @@ imgElement.onload = function() {
   let mat = cv.imread(imgElement);
   let thre = new cv.Mat()
   cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
-  ctx.drawImage(thre, 0, 0);
+  cv.imshow('canvasOutput', thre);
 
   decodeImageFromBase64(canvasOutput.toDataURL('image/png'), function(result) {
                     alert(result);
