@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>QR Decoder3</title>
+		 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+	</head>
+	<body>
+		<h1>QR Decoder3</h1>
+        <p id="status">OpenCV.js is loading...</p>
+		<video id="video" width="400" height="300" autoplay muted playsinline ></video>
+		<img id="img">
+		<div style="display:none">
+   		   <canvas id="canvas"></canvas>
+		</div>
+		<input type="button" id="action" value="解析"/>
+
+        <script type="text/javascript">
+        	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+        	var video = document.getElementById('video');
+        	var localStream = null;
+        	navigator.getUserMedia(
+        		{
+                audio: false,
+                video: { facingMode: { exact: "environment" } }
+            },
+        		function(stream) {
+         		video.srcObject = stream;
+         		localStream = stream;
+        		},
+        		function(err) {
+        			console.log(err);
+        		}
+    		);
+
+    		function decodeImageFromBase64(data, callback){
+        		qrcode.callback = callback;
+        		qrcode.decode(data)
+    		}
+
+
+    		document.getElementById("action").addEventListener('click',function(){
+        		if(localStream) {
+
+            		var img = document.getElementById('img');
+            		var w = video.offsetWidth/1.8;
+            		var h = video.offsetHeight;
+
+            		canvas.setAttribute("width", w);
+            		canvas.setAttribute("height", h);
+
+                    video.onload = function() { 
+                        var mat = cv.imread(video);
+                        var dst = new cv.Mat();
+                        var thre = new cv.Mat()
+                        cv.cvtColor(mat, dst, cv.COLOR_RGB2GRAY);
+                        cv.threshold( mat, thre, 170, 255, cv.THRESH_BINARY);
+                        cv.imshow('canvas', thre);
+
+                        decodeImageFromBase64(canvas.toDataURL('image/png'), function(result) {
+                        alert(result);
+                        });
+
+                        mat.delete();
+                        thre.delete();
+                        dst.delete();
+                    
+            		};
+        		}
+   			},false);
+
+            function onOpenCvReady() {
+            document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
+            }
+		</script>
+        <script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+        <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js">
+        </script>
+	</body>
+</html>
