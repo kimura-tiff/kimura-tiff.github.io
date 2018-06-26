@@ -38,12 +38,14 @@ imgElement.onload = function() {
   let close = new cv.Mat();
   let M = new cv.Mat.ones(5, 5, cv.CV_8U);
   let not = new cv.Mat();
-  /*
+  
   var lut[256];
+  /*
   var gamma = 2.0;
   var gm = 1.0 / gamma;
+  */
   var lut_mat = new cv.Mat(1, 256, cv.CV_8UC1, lut);
-
+/*
   for(var i = 0; i < 256; i++){
     lut[i] = Math.pow(1.0 * i / 255, gm) * 255;
   }
